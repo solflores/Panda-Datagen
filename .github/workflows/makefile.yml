@@ -1,21 +1,21 @@
-name: Makefile CI
+name: Daily Data Generation
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  schedule:
+    - cron: '20 7 * * *'  # Runs daily at 07:20 UTC
+  workflow_dispatch:      # Optional: allow manual trigger
 
 jobs:
-  build:
-
+  datagen:
     runs-on: ubuntu-latest
+    timeout-minutes: 360  # Max runtime = 6 hours
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Check Build
-      run: make build
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y make
 
-    - name: Test
-      run: make test
+      - name: Run datagen
+        run: make datagen
