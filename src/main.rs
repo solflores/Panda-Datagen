@@ -68,7 +68,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     match mode {
         Mode::Uci => uci_loop(),
         Mode::Profile => full_perft(),
-        Mode::Datagen => gen_data(DATAGEN_PATH, std::time::Duration::from_secs(ONE_HOUR * 100))?,
+        Mode::Datagen => gen_data(DATAGEN_PATH, std::time::Duration::from_secs(ONE_HOUR * 5))?,
         Mode::Debug => {}
     }
 
