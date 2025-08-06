@@ -1,18 +1,21 @@
-name: Daily Data Generation
+name: Continuous Data Generation
+
+concurrency:
+  group: datagen-job
+  cancel-in-progress: false
 
 on:
   schedule:
-    - cron: '20 7 * * *'  # Runs daily at 07:20 UTC
-  workflow_dispatch:      # Optional: allow manual trigger
+    - cron: '*/5 * * * *'  # every 5 minutes
+  workflow_dispatch:
 
 jobs:
   datagen:
     runs-on: ubuntu-latest
-    timeout-minutes: 360  # Max runtime = 6 hours
+    timeout-minutes: 360  # max 6 hours
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: sudo apt update && sudo apt install -y make
