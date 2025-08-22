@@ -1,4 +1,4 @@
-name: Continuous Data Generation
+name: Datagen
 
 concurrency:
   group: datagen-job
@@ -6,13 +6,13 @@ concurrency:
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # Runs every 5 minutes
-  workflow_dispatch:         # Allows manual trigger from GitHub UI
+    - cron: '*/5 * * * *' #attempt to run every 5 mins
+  workflow_dispatch:
 
 jobs:
   datagen:
     runs-on: ubuntu-latest
-    timeout-minutes: 360     # Optional: 6 hour max run time
+    timeout-minutes: 360
 
     steps:
       - name: Checkout repository
